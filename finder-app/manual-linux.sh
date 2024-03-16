@@ -12,6 +12,7 @@ BUSYBOX_VERSION=1_33_1
 FINDER_APP_DIR=$(realpath $(dirname $0))
 ARCH=arm64
 CROSS_COMPILE=aarch64-none-linux-gnu-
+PARALLEL_JOBS=-j$(nproc)
 
 if [ $# -lt 1 ]
 then
@@ -39,11 +40,11 @@ if [ ! -e ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ]; then
     sed -i '41d' './scripts/dtc/dtc-lexer.l'
 
     # TODO: Add your kernel build steps here
-    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} mrproper
-    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} defconfig
-    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} all
-    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} modules
-    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} dtbs
+    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} $PARALLEL_JOBS mrproper
+    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} $PARALLEL_JOBS defconfig
+    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} $PARALLEL_JOBS all
+    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} $PARALLEL_JOBS modules
+    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} $PARALLEL_JOBS dtbs
 else
     echo "Kernel already built"
 fi
