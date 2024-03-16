@@ -17,7 +17,7 @@ jobs:
             run: ./unit-test.sh
     full-test:
         runs-on: ubuntu-latest
-        container: cuaesd/aesd-autotest:assignment2
+        container: cuaesd/aesd-autotest:assignment3
         steps:
           - uses: actions/checkout@v2
           - name: Checkout submodules
