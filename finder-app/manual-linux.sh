@@ -34,6 +34,10 @@ if [ ! -e ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ]; then
     echo "Checking out version ${KERNEL_VERSION}"
     git checkout ${KERNEL_VERSION}
 
+    # Apply patch to scripts/dtc/dtc-lexer.l
+    git restore './scripts/dtc/dtc-lexer.l'
+    sed -i '41d' './scripts/dtc/dtc-lexer.l'
+
     # TODO: Add your kernel build steps here
     make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} mrproper
     make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} defconfig
