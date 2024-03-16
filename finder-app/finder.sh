@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Assigning command line arguments to variables
 filesdir=$1
